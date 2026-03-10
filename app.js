@@ -49,7 +49,6 @@ window.adicionarItem = async function () {
 // Remove item da lista pelo ID
 window.removerItem = async function (id) {
   const { error } = await supabase.from('lista_compras').delete().eq('id', id)
-  <br><br/>
   if (error) return alert('Erro ao remover: ' + error.message)
   carregarLista()
 

@@ -91,3 +91,7 @@ button {
     cursor: pointer;
     transition: var(--transition);
 }
+
+button.hover {
+    background-color: var(--cor-primeria-1);
+}

@@ -1,2 +1,44 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+:root {
+    --cor-primeria-1: #022B3A;
+    --cor-primeria-2: #1F7A8C;
+    --cor-primeria-3: #BFDBF7;
+    --cor-primeria-4: #E1E5F2;
+    --cor-bg: #FFFFFF;
+
+    --cor-branco: #fff;
+    --cor-preto: #1d1d1d;
+    --cor-sombra: rgba(0, 0, 0, 0.15);
+    --cor-texto: #333;
+
+    --fonte: "Poppins", sans-serif;
+
+    --raio: 12px;
+    --transition: 0.3s ease;
+
+
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fonte);
+    background: #022B3A;
+    background: linear-gradient(90deg, rgba(2, 43, 58, 1) 0%, rgba(31, 122, 140, 1) 50%, rgba(127, 180, 205, 1) 73%, rgba(191, 219, 247, 1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    
+}

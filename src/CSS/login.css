@@ -86,7 +86,7 @@ button {
     font-weight: 500;
     border: none;
     border-radius: var(--raio);
-    background-color: var(--cor-primeria-3hh);
+    background-color: var(--cor-primeria-3);
     color: var(--cor-preto);
     cursor: pointer;
     transition: var(--transition);

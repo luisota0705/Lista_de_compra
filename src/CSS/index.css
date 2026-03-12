@@ -32,4 +32,10 @@ body {
     font-family: var(--fonte);
     background: #022B3A;
     background: linear-gradient(90deg, rgba(2, 43, 58, 1) 0%, rgba(31, 122, 140, 1) 50%, rgba(127, 180, 205, 1) 73%, rgba(191, 219, 247, 1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    
 }

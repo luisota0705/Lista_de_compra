@@ -3,5 +3,20 @@
 
 
 :root {
+    --cor-primeria-1: #022B3A;
+    --cor-primeria-2: #1F7A8C;
+    --cor-primeria-3: #BFDBF7;
+    --cor-primeria-4: #E1E5F2;
+    --cor-bg: #FFFFFF;
+
+    --cor-branco: #fff;
+    --cor-preto: #1d1d1d;
+    --cor-sombra: rgba(0, 0, 0, 0.15);
+    --cor-texto: #333;
+
     
+
+
+
+
 }

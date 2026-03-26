@@ -125,7 +125,7 @@ button[onclick="logout()"] :hover {
     box-shadow: 0 2px 6px var(--cor-primeria-1);
 }
 
-button [onclick="adicionarItem()"]{
+button[onclick="adicionarItem()"]{
     padding: 12px 20px;
     background-color: var(--cor-primeria-1);
     color: var(--cor-bg);
@@ -137,7 +137,7 @@ button [onclick="adicionarItem()"]{
     transition: var(--transition);
 }
 
-button [onclick="adicionarItem()"]:hover{
+button[onclick="adicionarItem()"]:hover{
     background-color: var(--cor-preto);
 
 }

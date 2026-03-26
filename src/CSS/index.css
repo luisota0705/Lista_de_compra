@@ -139,5 +139,5 @@ button [onclick="adicionarItem()"]{
 
 button [onclick="adicionarItem()"]:hover{
     background-color: var(--cor-preto);
-    
+
 }

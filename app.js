@@ -70,7 +70,7 @@ async function carregarLista() {
     const { data, error } = await supabase
         .from('lista_compras')
         .select('*')
-        .order('id', { ascending: true }) // ✅ CORRIGIDO: usando 'id' em vez de 'created_at'
+        .order('id', { ascending: true })
 
     if (error) {
         console.error('❌ Erro ao carregar:', error)
@@ -207,61 +207,30 @@ document.addEventListener('keydown', (e) => {
 })
 
 // =============================================
-// SISTEMA DE TEMA CLARO/ESCURO
+// CONFIGURAÇÃO DOS EVENT LISTENERS (BOTÕES)
 // =============================================
 
-// Função para alternar tema
-window.toggleTheme = function() {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    // Aplica o novo tema
-    html.setAttribute('data-theme', newTheme);
-    
-    // Salva no localStorage
-    localStorage.setItem('theme', newTheme);
-    
-    // Atualiza o ícone
-    updateThemeIcon(newTheme);
-}
-
-// Função para atualizar o ícone do botão
-function updateThemeIcon(theme) {
-    const icon = document.getElementById('theme-icon');
-    if (!icon) return;
-    
-    if (theme === 'dark') {
-        icon.className = 'fas fa-sun';
-        icon.parentElement.title = 'Alternar para tema claro';
-    } else {
-        icon.className = 'fas fa-moon';
-        icon.parentElement.title = 'Alternar para tema escuro';
-    }
-}
-
-// Inicializa o ícone correto ao carregar
 document.addEventListener('DOMContentLoaded', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-    updateThemeIcon(currentTheme);
+    console.log('📋 Configurando event listeners...')
     
-    // Detecta mudança no sistema e atualiza se não houver preferência salva
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-            const newTheme = e.matches ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            updateThemeIcon(newTheme);
-        }
-    });
-});
+    // Botão de logout
+    const logoutBtn = document.getElementById('logout-btn')
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', window.logout)
+        console.log('✅ Botão logout configurado')
+    }
+    
+    // Botão de adicionar
+    const addBtn = document.getElementById('add-btn')
+    if (addBtn) {
+        addBtn.addEventListener('click', window.adicionarItem)
+        console.log('✅ Botão adicionar configurado')
+    }
+    
+    // Verifica o estado vazio inicial
+    setTimeout(() => {
+        verificarEstadoVazio()
+    }, 100)
+})
 
-console.log('🌓 Sistema de tema inicializado');
-
-// Verifica o tema atual
-console.log(document.documentElement.getAttribute('data-theme'));
-
-// Força o tema escuro
-document.documentElement.setAttribute('data-theme', 'dark');
-
-// Força o tema claro
-document.documentElement.setAttribute('data-theme', 'light');
+console.log('🎉 App carregado com sucesso!')

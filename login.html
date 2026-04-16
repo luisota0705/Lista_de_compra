@@ -2,23 +2,136 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Compra  3° SIS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lista de Compras · Login</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="shortcut icon" href="src/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="src/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="src/CSS/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Script de Tema - Executa antes de renderizar -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else if (savedTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            }
+            console.log('🌓 Tema inicial:', document.documentElement.getAttribute('data-theme'));
+        })();
+    </script>
 </head>
 <body>
-    <div class="container"> 
-        <img id="logo" src="src/icons/icon-512x512.png" alt="logo">
-        <h2 class="titulo">Login</h2>
-        <input type="email" id="email" placeholder="E-mail">
-        <input type="password" id="senha" placeholder="Senha">
-        <div class="botoes">
-            <button onclick="login()">Entrar</button>
-            <button onclick="cadastro()">Cadastrar</button>
+    <div class="login-container">
+        <!-- Botão de Tema (Canto superior direito) -->
+        <button class="theme-toggle-btn" id="theme-toggle" title="Alternar tema">
+            <i class="fas fa-moon" id="theme-icon"></i>
+        </button>
+        
+        <div class="login-card">
+            <div class="logo-wrapper">
+                <img id="logo" src="src/icons/icon-512x512.png" alt="Logo App Lista">
+            </div>
+            
+            <h2 class="titulo">Bem-vindo de volta</h2>
+            <p class="subtitulo">Organize suas compras de forma inteligente</p>
+
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" placeholder="E-mail" autocomplete="email">
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="senha" placeholder="Senha" autocomplete="current-password">
+            </div>
+
+            <button class="btn-primary" id="login-btn">Entrar</button>
+            
+            <div class="divider">
+                <span>ou</span>
+            </div>
+
+            <button class="btn-secondary" id="cadastro-btn">Criar uma conta gratuita</button>
         </div>
     </div>
+
+    <!-- Script do Tema -->
+    <script>
+        // Função para alternar tema
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            const icon = document.getElementById('theme-icon');
+            if (icon) {
+                if (newTheme === 'dark') {
+                    icon.className = 'fas fa-sun';
+                    document.getElementById('theme-toggle').title = 'Alternar para tema claro';
+                } else {
+                    icon.className = 'fas fa-moon';
+                    document.getElementById('theme-toggle').title = 'Alternar para tema escuro';
+                }
+            }
+            
+            console.log('🌓 Tema alterado para:', newTheme);
+        }
+        
+        // Inicializa o ícone correto
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const icon = document.getElementById('theme-icon');
+            const themeBtn = document.getElementById('theme-toggle');
+            
+            if (icon) {
+                if (currentTheme === 'dark') {
+                    icon.className = 'fas fa-sun';
+                    themeBtn.title = 'Alternar para tema claro';
+                } else {
+                    icon.className = 'fas fa-moon';
+                    themeBtn.title = 'Alternar para tema escuro';
+                }
+            }
+            
+            // Configura botão de tema
+            if (themeBtn) {
+                themeBtn.addEventListener('click', toggleTheme);
+            }
+            
+            // Configura botões de login/cadastro (se as funções existirem)
+            const loginBtn = document.getElementById('login-btn');
+            const cadastroBtn = document.getElementById('cadastro-btn');
+            
+            if (loginBtn && typeof window.login === 'function') {
+                loginBtn.addEventListener('click', window.login);
+            }
+            
+            if (cadastroBtn && typeof window.cadastro === 'function') {
+                cadastroBtn.addEventListener('click', window.cadastro);
+            }
+            
+            // Permite Enter no input de senha para fazer login
+            const senhaInput = document.getElementById('senha');
+            if (senhaInput) {
+                senhaInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && typeof window.login === 'function') {
+                        window.login();
+                    }
+                });
+            }
+        });
+        
+        // Torna a função global
+        window.toggleTheme = toggleTheme;
+    </script>
 
     <script type="module" src="auth.js"></script>
 </body>

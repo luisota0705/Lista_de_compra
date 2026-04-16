@@ -256,3 +256,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 console.log('🌓 Sistema de tema inicializado');
+
+// Verifica o tema atual
+console.log(document.documentElement.getAttribute('data-theme'));
+
+// Força o tema escuro
+document.documentElement.setAttribute('data-theme', 'dark');
+
+// Força o tema claro
+document.documentElement.setAttribute('data-theme', 'light');

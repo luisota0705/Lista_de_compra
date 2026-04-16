@@ -2,44 +2,64 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="src/CSS/index.css">
     <link rel="shortcut icon" href="src/icons/favicon.ico" type="image/x-icon">
-    <title>Lista de Compras</title>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Minha Lista · Compras</title>
 </head>
 <body>
-    <div class="container">
-    <h2 class="titulo">Minha Lista De Compras </h2>
+    <div class="app-wrapper">
+        <!-- Cabeçalho Fixo -->
+        <header class="app-header">
+            <h1 class="app-title">
+                <i class="fas fa-shopping-basket" style="margin-right: 10px; color: var(--cor-primaria-2);"></i>
+                Lista de Compras
+            </h1>
+            <button class="btn-logout" onclick="logout()" title="Sair da conta">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sair</span>
+            </button>
+        </header>
 
-    <button onclick="logout()">Sair</button>
+        <!-- Corpo Principal (Scrollável) -->
+        <main class="app-main">
+            <!-- Área da Lista -->
+            <div class="lista-wrapper">
+                <ul id="lista" class="lista-itens">
+                    <!-- Os itens serão inseridos aqui via JS -->
+                    <!-- Exemplo de estado vazio (será controlado por JS) -->
+                </ul>
+                <div id="empty-state" class="empty-state">
+                    <i class="fas fa-clipboard-list"></i>
+                    <p>Sua lista está vazia</p>
+                    <span>Adicione um item abaixo para começar</span>
+                </div>
+            </div>
+        </main>
 
-    <ul id="lista"></ul>
-
-    <input type="text" id="item" placeholder="Novo item">
-
-    <button onclick="adicionarItem()">Adicionar</button>
-
+        <!-- Rodapé Fixo com Input de Adicionar -->
+        <footer class="app-footer">
+            <div class="add-item-container">
+                <input type="text" id="item" placeholder="Ex: Pão, Leite, Frutas..." autocomplete="off">
+                <button class="btn-add" onclick="adicionarItem()">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </footer>
     </div>
 
     <script type="module" src="app.js"></script>
-
-
-<script>
+    <script>
+        // Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/service-worker.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registrado com sucesso:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.log('Falha ao registrar o ServiceWorker:', error);
-                    });
+                    .then(registration => console.log('SW registrado:', registration.scope))
+                    .catch(error => console.log('Falha no SW:', error));
             });
         }
     </script>
-    
-    
 </body>
 </html>

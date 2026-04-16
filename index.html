@@ -14,27 +14,33 @@
         <!-- Cabeçalho Fixo -->
         <header class="app-header">
             <h1 class="app-title">
-                <i class="fas fa-shopping-basket" style="margin-right: 10px; color: var(--cor-primaria-2);"></i>
+                <i class="fas fa-shopping-basket"></i>
                 Lista de Compras
             </h1>
-            <button class="btn-logout" onclick="logout()" title="Sair da conta">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Sair</span>
-            </button>
+            <div class="header-actions">
+                <!-- Botão de Tema -->
+                <button class="btn-theme" onclick="toggleTheme()" title="Alternar tema">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+                <!-- Botão Sair -->
+                <button class="btn-logout" onclick="logout()" title="Sair da conta">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                </button>
+            </div>
         </header>
 
         <!-- Corpo Principal (Scrollável) -->
         <main class="app-main">
-            <!-- Área da Lista -->
             <div class="lista-wrapper">
-                <ul id="lista" class="lista-itens">
-                    <!-- Os itens serão inseridos aqui via JS -->
-                    <!-- Exemplo de estado vazio (será controlado por JS) -->
-                </ul>
+                <ul id="lista" class="lista-itens"></ul>
+                
                 <div id="empty-state" class="empty-state">
-                    <i class="fas fa-clipboard-list"></i>
-                    <p>Sua lista está vazia</p>
-                    <span>Adicione um item abaixo para começar</span>
+                    <div class="empty-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <h3>Sua lista está vazia</h3>
+                    <p>Adicione um item abaixo para começar</p>
                 </div>
             </div>
         </main>
@@ -49,6 +55,21 @@
             </div>
         </footer>
     </div>
+
+    <!-- Script do Tema (deve carregar antes para evitar flash) -->
+    <script>
+        // Aplica o tema antes da página renderizar (evita flash)
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
 
     <script type="module" src="app.js"></script>
     <script>

@@ -205,3 +205,54 @@ document.addEventListener('keydown', (e) => {
         adicionarItem()
     }
 })
+
+// =============================================
+// SISTEMA DE TEMA CLARO/ESCURO
+// =============================================
+
+// Função para alternar tema
+window.toggleTheme = function() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    // Aplica o novo tema
+    html.setAttribute('data-theme', newTheme);
+    
+    // Salva no localStorage
+    localStorage.setItem('theme', newTheme);
+    
+    // Atualiza o ícone
+    updateThemeIcon(newTheme);
+}
+
+// Função para atualizar o ícone do botão
+function updateThemeIcon(theme) {
+    const icon = document.getElementById('theme-icon');
+    if (!icon) return;
+    
+    if (theme === 'dark') {
+        icon.className = 'fas fa-sun';
+        icon.parentElement.title = 'Alternar para tema claro';
+    } else {
+        icon.className = 'fas fa-moon';
+        icon.parentElement.title = 'Alternar para tema escuro';
+    }
+}
+
+// Inicializa o ícone correto ao carregar
+document.addEventListener('DOMContentLoaded', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    updateThemeIcon(currentTheme);
+    
+    // Detecta mudança no sistema e atualiza se não houver preferência salva
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            const newTheme = e.matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+    });
+});
+
+console.log('🌓 Sistema de tema inicializado');

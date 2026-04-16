@@ -8,6 +8,22 @@
     <link rel="shortcut icon" href="src/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Minha Lista · Compras</title>
+    
+    <!-- Script de Tema - Deve rodar ANTES de tudo -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else if (savedTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            }
+            console.log('🌓 Tema inicial:', document.documentElement.getAttribute('data-theme'));
+        })();
+    </script>
 </head>
 <body>
     <div class="app-wrapper">
@@ -19,18 +35,18 @@
             </h1>
             <div class="header-actions">
                 <!-- Botão de Tema -->
-                <button class="btn-theme" onclick="toggleTheme()" title="Alternar tema">
+                <button class="btn-theme" id="theme-toggle" title="Alternar tema">
                     <i class="fas fa-moon" id="theme-icon"></i>
                 </button>
                 <!-- Botão Sair -->
-                <button class="btn-logout" onclick="logout()" title="Sair da conta">
+                <button class="btn-logout" id="logout-btn" title="Sair da conta">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Sair</span>
                 </button>
             </div>
         </header>
 
-        <!-- Corpo Principal (Scrollável) -->
+        <!-- Corpo Principal -->
         <main class="app-main">
             <div class="lista-wrapper">
                 <ul id="lista" class="lista-itens"></ul>
@@ -45,30 +61,75 @@
             </div>
         </main>
 
-        <!-- Rodapé Fixo com Input de Adicionar -->
+        <!-- Rodapé -->
         <footer class="app-footer">
             <div class="add-item-container">
                 <input type="text" id="item" placeholder="Ex: Pão, Leite, Frutas..." autocomplete="off">
-                <button class="btn-add" onclick="adicionarItem()">
+                <button class="btn-add" id="add-btn">
                     <i class="fas fa-plus"></i>
                 </button>
             </div>
         </footer>
     </div>
 
-    <!-- Script do Tema (deve carregar antes para evitar flash) -->
+    <!-- Script do Tema -->
     <script>
-        // Aplica o tema antes da página renderizar (evita flash)
-        (function() {
-            const savedTheme = localStorage.getItem('theme');
-            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        // Função para alternar tema
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
-            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            const icon = document.getElementById('theme-icon');
+            if (icon) {
+                if (newTheme === 'dark') {
+                    icon.className = 'fas fa-sun';
+                } else {
+                    icon.className = 'fas fa-moon';
+                }
             }
-        })();
+            
+            console.log('🌓 Tema alterado para:', newTheme);
+        }
+        
+        // Inicializa o ícone correto
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const icon = document.getElementById('theme-icon');
+            if (icon) {
+                if (currentTheme === 'dark') {
+                    icon.className = 'fas fa-sun';
+                } else {
+                    icon.className = 'fas fa-moon';
+                }
+            }
+            
+            // Vincula o botão de tema
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', toggleTheme);
+            }
+            
+            // Vincula o botão de logout (se existir a função global)
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn && typeof window.logout === 'function') {
+                logoutBtn.addEventListener('click', window.logout);
+            }
+            
+            // Vincula o botão de adicionar
+            const addBtn = document.getElementById('add-btn');
+            if (addBtn && typeof window.adicionarItem === 'function') {
+                addBtn.addEventListener('click', window.adicionarItem);
+            }
+            
+            console.log('✅ Event listeners configurados');
+        });
+        
+        // Torna a função global
+        window.toggleTheme = toggleTheme;
     </script>
 
     <script type="module" src="app.js"></script>

@@ -7,10 +7,7 @@ const lista = document.getElementById('lista')
 const input = document.getElementById('item')
 const emptyStateElement = document.getElementById('empty-state')
 
-console.log('🔵 App iniciado - Verificando elementos DOM:')
-console.log('lista:', lista)
-console.log('input:', input)
-console.log('emptyState:', emptyStateElement)
+console.log('🔵 App iniciado - Elementos DOM:', { lista, input, emptyStateElement })
 
 // =============================================
 // FUNÇÕES AUXILIARES DE UI
@@ -18,7 +15,7 @@ console.log('emptyState:', emptyStateElement)
 
 function verificarEstadoVazio() {
     const itens = document.querySelectorAll('.item-compra')
-    console.log(`📊 Total de itens na lista: ${itens.length}`)
+    console.log(`📊 Total de itens: ${itens.length}`)
     
     if (itens.length === 0) {
         if (emptyStateElement) emptyStateElement.style.display = 'flex'
@@ -41,15 +38,15 @@ window.toggleCheck = function (elemento) {
 // =============================================
 
 async function getUser() {
-    console.log('🔐 Verificando usuário...')
     const { data: { user }, error } = await supabase.auth.getUser()
     
     if (error) {
         console.error('❌ Erro ao obter usuário:', error)
+        return null
     }
     
     if (!user) {
-        console.warn('⚠️ Usuário não autenticado - Redirecionando para login')
+        console.warn('⚠️ Usuário não autenticado - Redirecionando')
         window.location.href = 'login.html'
         return null
     }
@@ -68,31 +65,25 @@ window.logout = async function () {
 // =============================================
 
 async function carregarLista() {
-    console.log('📥 Carregando lista do Supabase...')
+    console.log('📥 Carregando lista...')
     
     const { data, error } = await supabase
         .from('lista_compras')
         .select('*')
-        .order('created_at', { ascending: true })
+        .order('id', { ascending: true }) // ✅ CORRIGIDO: usando 'id' em vez de 'created_at'
 
     if (error) {
-        console.error('❌ Erro ao carregar lista:', error)
+        console.error('❌ Erro ao carregar:', error)
         alert('Erro ao carregar lista: ' + error.message)
         return
     }
 
     console.log(`✅ ${data.length} itens carregados:`, data)
 
-    // Limpa a lista
     lista.innerHTML = ''
 
-    if (data.length === 0) {
-        console.log('📭 Lista vazia')
-    }
-
-    // Renderiza cada item
     data.forEach((item) => {
-        console.log(`🛒 Renderizando item: ${item.item} (ID: ${item.id})`)
+        console.log(`🛒 Renderizando: ${item.item}`)
         
         const li = document.createElement('li')
         li.className = 'item-compra'
@@ -122,30 +113,24 @@ function escapeHtml(text) {
 }
 
 window.adicionarItem = async function () {
-    console.log('➕ Tentando adicionar item...')
+    console.log('➕ Adicionar item...')
     
     const texto = input.value.trim()
-    console.log('Texto digitado:', texto)
     
     if (texto === '') {
-        console.warn('⚠️ Texto vazio - ignorando')
-        input.style.transition = 'all 0.2s ease'
+        console.warn('⚠️ Texto vazio')
         input.style.backgroundColor = '#FEF2F2'
-        setTimeout(() => {
-            input.style.backgroundColor = ''
-        }, 300)
+        setTimeout(() => input.style.backgroundColor = '', 300)
         return
     }
 
     const user = await getUser()
     if (!user) {
-        console.error('❌ Sem usuário autenticado')
+        console.error('❌ Sem usuário')
         return
     }
 
-    console.log('📤 Enviando para Supabase:')
-    console.log('  - item:', texto)
-    console.log('  - adicionado_por:', user.id)
+    console.log('📤 Inserindo:', { item: texto, adicionado_por: user.id })
 
     const { data, error } = await supabase
         .from('lista_compras')
@@ -153,7 +138,7 @@ window.adicionarItem = async function () {
             item: texto,
             adicionado_por: user.id
         })
-        .select() // Para retornar o item inserido
+        .select()
 
     if (error) {
         console.error('❌ Erro ao adicionar:', error)
@@ -161,7 +146,7 @@ window.adicionarItem = async function () {
         return
     }
 
-    console.log('✅ Item adicionado com sucesso:', data)
+    console.log('✅ Item adicionado:', data)
     
     input.value = ''
     input.focus()
@@ -169,12 +154,11 @@ window.adicionarItem = async function () {
 }
 
 window.removerItem = async function (id) {
-    console.log(`🗑️ Tentando remover item ID: ${id}`)
+    console.log(`🗑️ Removendo ID: ${id}`)
     
     const itemParaRemover = document.querySelector(`[onclick="removerItem('${id}')"]`)?.closest('.item-compra')
     
     if (itemParaRemover) {
-        itemParaRemover.style.transition = 'all 0.2s ease'
         itemParaRemover.style.opacity = '0'
         itemParaRemover.style.transform = 'translateX(20px)'
         await new Promise(resolve => setTimeout(resolve, 150))
@@ -191,7 +175,7 @@ window.removerItem = async function (id) {
         return
     }
 
-    console.log('✅ Item removido com sucesso')
+    console.log('✅ Item removido')
     await carregarLista()
 }
 
@@ -199,11 +183,11 @@ window.removerItem = async function (id) {
 // INICIALIZAÇÃO
 // =============================================
 
-console.log('🚀 Inicializando aplicação...')
+console.log('🚀 Inicializando...')
 
 getUser().then((user) => {
     if (user) {
-        console.log('👤 Usuário confirmado, carregando lista...')
+        console.log('👤 Carregando lista para usuário:', user.id)
         carregarLista()
         
         input.addEventListener('keypress', (e) => {
@@ -215,9 +199,9 @@ getUser().then((user) => {
     }
 })
 
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter' && document.activeElement === input) {
-        event.preventDefault()
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && document.activeElement === input) {
+        e.preventDefault()
         adicionarItem()
     }
 })

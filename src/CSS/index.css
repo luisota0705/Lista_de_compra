@@ -283,3 +283,48 @@ body {
         transform: translateX(0);
     }
 }
+
+/* Adicione estas regras no final do arquivo index.css */
+
+/* Ajustes para o container de ações do header */
+.header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Ajuste para o botão de tema no modo escuro */
+[data-theme="dark"] .btn-theme {
+    background: var(--cor-fundo-input);
+    border-color: var(--cor-borda);
+    color: var(--cor-texto);
+}
+
+[data-theme="dark"] .btn-theme:hover {
+    background: var(--cor-primaria-2);
+    color: white;
+}
+
+/* Transição suave para o wrapper principal */
+.app-wrapper {
+    transition: background-color 0.3s ease, border-color 0.2s ease;
+}
+
+/* Ajuste das cores dos itens da lista no modo escuro */
+[data-theme="dark"] .item-texto {
+    color: var(--cor-texto);
+}
+
+[data-theme="dark"] .item-texto.riscado {
+    color: var(--cor-texto-light);
+}
+
+[data-theme="dark"] .item-check {
+    border-color: var(--cor-borda);
+    background: var(--cor-fundo-input);
+}
+
+[data-theme="dark"] .item-check.checked {
+    background: var(--cor-primaria-2);
+    border-color: var(--cor-primaria-2);
+}

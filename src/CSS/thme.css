@@ -1,0 +1,178 @@
+/* ============================================
+   SISTEMA DE TEMAS CLARO/ESCURO
+   ============================================ */
+
+/* Transição global para troca suave de temas */
+* {
+    transition: background-color 0.3s ease, 
+                border-color 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+/* Modo Claro (padrão) */
+:root {
+    /* Cores Principais */
+    --cor-primaria-1: #022B3A;
+    --cor-primaria-2: #1F7A8C;
+    --cor-secundaria: #BFDBF7;
+    
+    /* Fundos */
+    --cor-fundo: #F4F7FC;
+    --cor-fundo-card: #FFFFFF;
+    --cor-fundo-input: #F8FAFC;
+    
+    /* Textos */
+    --cor-texto: #2C3E50;
+    --cor-texto-light: #64748B;
+    
+    /* Bordas e Sombras */
+    --cor-borda: #E2E8F0;
+    --cor-sombra: rgba(0, 0, 0, 0.05);
+    --cor-sombra-forte: rgba(2, 43, 58, 0.15);
+    
+    /* Botões e Ações */
+    --cor-hover: #F1F5F9;
+    --cor-danger: #EF4444;
+    --cor-danger-hover: #DC2626;
+}
+
+/* Modo Escuro */
+[data-theme="dark"] {
+    /* Cores Principais (ajustadas para escuro) */
+    --cor-primaria-1: #2DD4BF;
+    --cor-primaria-2: #14B8A6;
+    --cor-secundaria: #0F172A;
+    
+    /* Fundos */
+    --cor-fundo: #0F172A;
+    --cor-fundo-card: #1E293B;
+    --cor-fundo-input: #334155;
+    
+    /* Textos */
+    --cor-texto: #F1F5F9;
+    --cor-texto-light: #94A3B8;
+    
+    /* Bordas e Sombras */
+    --cor-borda: #334155;
+    --cor-sombra: rgba(0, 0, 0, 0.3);
+    --cor-sombra-forte: rgba(0, 0, 0, 0.5);
+    
+    /* Botões e Ações */
+    --cor-hover: #334155;
+    --cor-danger: #F87171;
+    --cor-danger-hover: #EF4444;
+}
+
+/* Ajustes específicos para o modo escuro */
+[data-theme="dark"] .login-card,
+[data-theme="dark"] .app-wrapper {
+    background: var(--cor-fundo-card);
+}
+
+[data-theme="dark"] .input-group {
+    background: var(--cor-fundo-input);
+    border-color: var(--cor-borda);
+}
+
+[data-theme="dark"] .input-group input {
+    color: var(--cor-texto);
+}
+
+[data-theme="dark"] .input-group input::placeholder {
+    color: #64748B;
+}
+
+[data-theme="dark"] .btn-secondary {
+    background: transparent;
+    border-color: var(--cor-borda);
+    color: var(--cor-primaria-1);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: var(--cor-hover);
+}
+
+[data-theme="dark"] .item-compra {
+    background: var(--cor-fundo-card);
+    border-color: var(--cor-borda);
+}
+
+[data-theme="dark"] .item-compra:hover {
+    border-color: var(--cor-primaria-2);
+    box-shadow: 0 8px 15px -6px rgba(45, 212, 191, 0.2);
+}
+
+[data-theme="dark"] .btn-delete:hover {
+    background: var(--cor-hover);
+}
+
+[data-theme="dark"] .add-item-container {
+    background: var(--cor-fundo-input);
+    border-color: var(--cor-borda);
+}
+
+[data-theme="dark"] .app-header,
+[data-theme="dark"] .app-footer {
+    background: var(--cor-fundo-card);
+    border-color: var(--cor-borda);
+}
+
+[data-theme="dark"] .btn-logout {
+    border-color: var(--cor-borda);
+    color: var(--cor-texto-light);
+}
+
+[data-theme="dark"] .btn-logout:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: var(--cor-danger);
+    color: var(--cor-danger);
+}
+
+[data-theme="dark"] .empty-state i {
+    color: var(--cor-primaria-2);
+    opacity: 0.8;
+}
+
+/* Botão de Tema */
+.btn-theme {
+    background: none;
+    border: 1px solid var(--cor-borda);
+    padding: 8px 12px;
+    border-radius: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--cor-texto);
+}
+
+.btn-theme:hover {
+    background: var(--cor-hover);
+    transform: scale(1.05);
+}
+
+.btn-theme i {
+    font-size: 1.1rem;
+}
+
+/* Container para os botões no header (index) */
+.header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Container para o botão de tema no login */
+.theme-toggle-login {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.login-container {
+    position: relative;
+}

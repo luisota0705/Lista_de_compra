@@ -195,3 +195,35 @@ body {
         padding: 2rem 1.5rem;
     }
 }
+
+/* Adicione estas regras no final do arquivo login.css */
+
+/* Ajustes para o botão de tema no login */
+.theme-toggle-login {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.login-container {
+    position: relative;
+}
+
+/* Garantir que o card tenha fundo correto no tema escuro */
+.login-card {
+    background: var(--cor-fundo-card);
+    transition: background-color 0.3s ease;
+}
+
+/* Ajuste das cores dos textos no tema escuro */
+[data-theme="dark"] .titulo {
+    color: var(--cor-primaria-1);
+}
+
+[data-theme="dark"] .subtitulo {
+    color: var(--cor-texto-light);
+}
+
+[data-theme="dark"] .divider {
+    color: var(--cor-texto-light);
+}

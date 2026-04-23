@@ -133,6 +133,54 @@
         window.toggleTheme = toggleTheme;
     </script>
 
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lista de Compras · Login</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" href="src/icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="src/CSS/login.css">
+    <link rel="stylesheet" href="src/CSS/theme.css">
+    <!-- Ícones simples via Font Awesome para dar um charme (opcional, mas recomendado) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-wrapper">
+                <img id="logo" src="src/icons/icon-512x512.png" alt="Logo App Lista">
+            </div>
+            
+            <h2 class="titulo">Bem-vindo de volta</h2>
+            <p class="subtitulo">Organize suas compras de forma inteligente</p>
+
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" placeholder="E-mail" autocomplete="email">
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="senha" placeholder="Senha" autocomplete="current-password">
+            </div>
+
+            <button class="btn-primary" onclick="login()">Entrar</button>
+            
+            <div class="divider">
+                <span>ou</span>
+            </div>
+
+            <button class="btn-secondary" onclick="cadastro()">Criar uma conta gratuita</button>
+        </div>
+    </div>
+
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="src/JS/theme.js"></script>
+</body>
+</html>
+
     <script type="module" src="auth.js"></script>
 </body>
 </html>

@@ -1,16 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --cor-primaria-1: #022B3A; /* Azul Petróleo Escuro - Ação Primária */
-    --cor-primaria-2: #1F7A8C; /* Azul Médio - Hover/Foco */
-    --cor-secundaria: #BFDBF7; /* Azul Claro - Backgrounds suaves */
-    --cor-fundo: #F4F7FC;      /* Fundo geral da página (substitui gradiente agressivo) */
+    --cor-primaria-1: #022B3A;
+    --cor-primaria-2: #1F7A8C;
+    --cor-secundaria: #BFDBF7;
+    --cor-fundo: #F4F7FC;
     --cor-branco: #FFFFFF;
-    --cor-texto: #2C3E50;       /* Azul acinzentado para texto (mais suave que preto puro) */
+    --cor-texto: #2C3E50;
     --cor-borda: #E2E8F0;
     --cor-sombra: rgba(0, 0, 0, 0.05);
     --fonte: "Poppins", sans-serif;
-    --raio: 16px;
     --transition: all 0.2s ease-in-out;
 }
 
@@ -23,7 +22,6 @@
 body {
     font-family: var(--fonte);
     background-color: var(--cor-fundo);
-    /* Padrão sutil de background para dar textura (opcional) */
     background-image: radial-gradient(var(--cor-secundaria) 0.5px, transparent 0.5px);
     background-size: 40px 40px;
     display: flex;
@@ -43,7 +41,7 @@ body {
 .login-card {
     background: var(--cor-branco);
     padding: 2.5rem 2rem;
-    border-radius: 32px; /* Raio maior para um ar mais moderno */
+    border-radius: 32px;
     box-shadow: 0 20px 35px -8px rgba(2, 43, 58, 0.15);
     text-align: center;
     backdrop-filter: blur(2px);
@@ -76,7 +74,6 @@ body {
     margin-bottom: 2rem;
 }
 
-/* Estilização Moderna dos Inputs */
 .input-group {
     display: flex;
     align-items: center;
@@ -118,14 +115,13 @@ body {
     font-weight: 300;
 }
 
-/* Botões com Hierarquia Clara */
 .btn-primary {
     width: 100%;
     padding: 15px;
     font-size: 1rem;
     font-weight: 600;
     border: none;
-    border-radius: 40px; /* Botão Pill */
+    border-radius: 40px;
     background: var(--cor-primaria-1);
     color: white;
     cursor: pointer;
@@ -178,7 +174,6 @@ body {
     border-color: var(--cor-primaria-2);
 }
 
-/* Animação sutil de entrada */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -194,36 +189,4 @@ body {
     .login-card {
         padding: 2rem 1.5rem;
     }
-}
-
-/* Adicione estas regras no final do arquivo login.css */
-
-/* Ajustes para o botão de tema no login */
-.theme-toggle-login {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-
-.login-container {
-    position: relative;
-}
-
-/* Garantir que o card tenha fundo correto no tema escuro */
-.login-card {
-    background: var(--cor-fundo-card);
-    transition: background-color 0.3s ease;
-}
-
-/* Ajuste das cores dos textos no tema escuro */
-[data-theme="dark"] .titulo {
-    color: var(--cor-primaria-1);
-}
-
-[data-theme="dark"] .subtitulo {
-    color: var(--cor-texto-light);
-}
-
-[data-theme="dark"] .divider {
-    color: var(--cor-texto-light);
 }

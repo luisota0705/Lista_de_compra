@@ -11,7 +11,6 @@
     --cor-borda: #E2E8F0;
     --cor-sombra: rgba(0, 0, 0, 0.05);
     --fonte: "Poppins", sans-serif;
-    --raio: 20px;
     --transition: all 0.2s ease;
 }
 
@@ -31,7 +30,6 @@ body {
     color: var(--cor-texto);
 }
 
-/* Estrutura do App PWA */
 .app-wrapper {
     width: 100%;
     max-width: 600px;
@@ -41,7 +39,6 @@ body {
     display: flex;
     flex-direction: column;
     box-shadow: 0 0 30px var(--cor-sombra);
-    border-radius: 0; /* Mobile first: sem borda, se for desktop centralizado pode por raio */
     overflow: hidden;
     position: relative;
 }
@@ -57,7 +54,6 @@ body {
     }
 }
 
-/* Cabeçalho */
 .app-header {
     padding: 20px 24px;
     background: var(--cor-branco);
@@ -75,6 +71,13 @@ body {
     letter-spacing: -0.5px;
     display: flex;
     align-items: center;
+    gap: 10px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
 }
 
 .btn-logout {
@@ -90,6 +93,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+    font-family: var(--fonte);
 }
 
 .btn-logout:hover {
@@ -98,7 +102,6 @@ body {
     color: #DC2626;
 }
 
-/* Área Principal com Scroll */
 .app-main {
     flex: 1;
     overflow-y: auto;
@@ -110,9 +113,8 @@ body {
     min-height: 100%;
 }
 
-/* Estado Vazio */
 .empty-state {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -121,21 +123,20 @@ body {
     color: var(--cor-texto-light);
 }
 
-.empty-state i {
+.empty-state .empty-icon i {
     font-size: 3.5rem;
     margin-bottom: 16px;
     color: var(--cor-secundaria);
     opacity: 0.7;
 }
 
-.empty-state p {
+.empty-state h3 {
     font-size: 1.2rem;
     font-weight: 500;
     color: var(--cor-texto);
     margin-bottom: 4px;
 }
 
-/* Lista de Itens */
 .lista-itens {
     list-style: none;
     display: flex;
@@ -143,7 +144,6 @@ body {
     gap: 10px;
 }
 
-/* Item da Lista - Design Card Limpo */
 .item-compra {
     background: var(--cor-branco);
     border: 1px solid var(--cor-borda);
@@ -177,24 +177,25 @@ body {
     background: white;
     cursor: pointer;
     transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-check i {
+    font-size: 10px;
+    color: white;
+    opacity: 0;
+    transition: var(--transition);
 }
 
 .item-check.checked {
     background: var(--cor-primaria-2);
     border-color: var(--cor-primaria-2);
-    position: relative;
 }
 
-.item-check.checked::after {
-    content: '\f00c';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    color: white;
-    font-size: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+.item-check.checked i {
+    opacity: 1;
 }
 
 .item-texto {
@@ -223,7 +224,6 @@ body {
     color: #EF4444;
 }
 
-/* Rodapé Fixo - Adicionar Item */
 .app-footer {
     padding: 16px 20px 24px;
     background: var(--cor-branco);
@@ -249,6 +249,11 @@ body {
     font-size: 1rem;
     font-family: var(--fonte);
     outline: none;
+    color: var(--cor-texto);
+}
+
+.add-item-container input::placeholder {
+    color: #94A3B8;
 }
 
 .btn-add {
@@ -265,6 +270,7 @@ body {
     transition: var(--transition);
     box-shadow: 0 8px 15px -6px var(--cor-primaria-1);
     font-size: 1.3rem;
+    flex-shrink: 0;
 }
 
 .btn-add:hover {
@@ -272,7 +278,6 @@ body {
     transform: scale(1.02);
 }
 
-/* Animações */
 @keyframes slideIn {
     from {
         opacity: 0;
@@ -282,49 +287,4 @@ body {
         opacity: 1;
         transform: translateX(0);
     }
-}
-
-/* Adicione estas regras no final do arquivo index.css */
-
-/* Ajustes para o container de ações do header */
-.header-actions {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
-/* Ajuste para o botão de tema no modo escuro */
-[data-theme="dark"] .btn-theme {
-    background: var(--cor-fundo-input);
-    border-color: var(--cor-borda);
-    color: var(--cor-texto);
-}
-
-[data-theme="dark"] .btn-theme:hover {
-    background: var(--cor-primaria-2);
-    color: white;
-}
-
-/* Transição suave para o wrapper principal */
-.app-wrapper {
-    transition: background-color 0.3s ease, border-color 0.2s ease;
-}
-
-/* Ajuste das cores dos itens da lista no modo escuro */
-[data-theme="dark"] .item-texto {
-    color: var(--cor-texto);
-}
-
-[data-theme="dark"] .item-texto.riscado {
-    color: var(--cor-texto-light);
-}
-
-[data-theme="dark"] .item-check {
-    border-color: var(--cor-borda);
-    background: var(--cor-fundo-input);
-}
-
-[data-theme="dark"] .item-check.checked {
-    background: var(--cor-primaria-2);
-    border-color: var(--cor-primaria-2);
 }
